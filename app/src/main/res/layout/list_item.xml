@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/phone_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/add_phone" />
+
+    <TextView
+        android:id="@+id/list_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/phone_image"
+        android:text="lj"
+        android:textColor="@color/black"
+        android:textSize="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_phone"
+        android:layout_toRightOf="@id/phone_image"
+        android:layout_below="@id/list_name"
+        android:text="12345"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/button_call"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="56dp"
+        android:layout_toRightOf="@id/list_phone"
+
+        android:background="@drawable/button_call" />
+
+    <Button
+        android:id="@+id/button_massages"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="37dp"
+        android:layout_toRightOf="@id/button_call"
+        android:background="@drawable/button_massage"
+        android:gravity="right" />
+
+    <Button
+        android:id="@+id/button_change"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="27dp"
+        android:layout_toRightOf="@id/button_massages"
+        android:background="@drawable/button_change"
+        android:gravity="right" />
+
+</RelativeLayout>
+
