@@ -97,7 +97,7 @@ public class AddPhoneNumber extends AppCompatActivity {
                             //判断数据库中是否已经存在输入的联系人的姓名，或者是否存在输入的信息相同的信息
                             if((name.equals(editName)&& phone1.equals(editPhone1)) && (phone2.equals(editPhone2)
                                     && housePhone.equals(editHousePhone)) && (officePone.equals(editOfficePhone) && address.equals(editAddress) && remark.equals(editRemark)) || name.equals(editName)){
-//  如果存在相同的，那么count自增 count ++;
+                                count++;
                             }
                         }while (cursor.moveToNext());
                     }

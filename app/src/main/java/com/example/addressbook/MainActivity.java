@@ -40,14 +40,13 @@ public class MainActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,AddPhoneNumber.class);
+                Intent intent = new Intent(MainActivity.this, AddPhoneNumber.class);
                 startActivity(intent);
-            }
-        });
+            }});
         db = dbHelper.getWritableDatabase();
-        Cursor cursor = db.query("PhoneNumber",null,null,null,null,null,null);
-        if (cursor.moveToFirst()){
-            do{
+        Cursor cursor = db.query("PhoneNumber", null, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
                 String name = cursor.getString(cursor.getColumnIndex("name"));
                 String phone1 = cursor.getString(cursor.getColumnIndex("phone1"));
                 String phone2 = cursor.getString(cursor.getColumnIndex("phone2"));
@@ -55,11 +54,11 @@ public class MainActivity extends AppCompatActivity {
                 String officePone = cursor.getString(cursor.getColumnIndex("officePhone"));
                 String address = cursor.getString(cursor.getColumnIndex("address"));
                 String remark = cursor.getString(cursor.getColumnIndex("remark"));
-                Phone phoneInfo = new Phone(name,phone1,phone2,housePhone,officePone,address,remark);
+                Phone phoneInfo = new Phone(name, phone1, phone2, housePhone, officePone, address, remark);
                 phones.add(phoneInfo);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
-        adapter = new ListAdapter(MainActivity.this,R.layout.list_item, phones);
+        adapter = new ListAdapter(MainActivity.this, R.layout.list_item, phones);
         listViewPhone.setAdapter(adapter);
         listViewPhone.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -91,18 +90,17 @@ public class MainActivity extends AppCompatActivity {
                         checkAddress = phoneCheck.getAddress(),
                         checkRemark = phoneCheck.getRemark();
                 Intent intent = new Intent(MainActivity.this, EditPhone.class);
-                intent.putExtra("extra_name",checkName);
-                intent.putExtra("extra_phone1",checkPhone1);
-                intent.putExtra("extra_phone2",checkPhone2);
-                intent.putExtra("extra_housePhone",checkHousePhone);
-                intent.putExtra("extra_officePhone",checkOfficePhone);
-                intent.putExtra("extra_address",checkAddress);
-                intent.putExtra("extra_remark",checkRemark);
-                intent.putExtra("extra_i",i);
+                intent.putExtra("extra_name", checkName);
+                intent.putExtra("extra_phone1", checkPhone1);
+                intent.putExtra("extra_phone2", checkPhone2);
+                intent.putExtra("extra_housePhone", checkHousePhone);
+                intent.putExtra("extra_officePhone", checkOfficePhone);
+                intent.putExtra("extra_address", checkAddress);
+                intent.putExtra("extra_remark", checkRemark);
+                intent.putExtra("extra_i", i);
                 startActivity(intent);
-                Toast.makeText(MainActivity.this,"编辑",Toast.LENGTH_SHORT).show();
-            }
-        });
+                Toast.makeText(MainActivity.this, "编辑", Toast.LENGTH_SHORT).show();
+            }});
         adapter.setOnItemMassgasClickListener(new ListAdapter.OnItemMassgasListener() {
             @Override
             public void onMassgasClick(int i) {
@@ -112,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("smsto:" + phoneNumber));
                 startActivity(intent);
-                Toast.makeText(MainActivity.this,"短信",Toast.LENGTH_SHORT).show();
-            }}});
+                Toast.makeText(MainActivity.this, "短信", Toast.LENGTH_SHORT).show();
+            }});}
     private void deleteDialog(final int positon){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage("删除联系人");
