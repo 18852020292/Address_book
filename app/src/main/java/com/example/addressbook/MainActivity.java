@@ -1,18 +1,16 @@
-package com.example.address_book;
+package com.example.addressbook;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -22,6 +20,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author 刘杰
+ */
 public class MainActivity extends AppCompatActivity {
     Button buttonAdd ;
     ListView listViewPhone;
@@ -42,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         db = dbHelper.getWritableDatabase();
         Cursor cursor = db.query("PhoneNumber",null,null,null,null,null,null);
         if (cursor.moveToFirst()){
@@ -60,79 +61,35 @@ public class MainActivity extends AppCompatActivity {
         }
         adapter = new ListAdapter(MainActivity.this,R.layout.list_item, phones);
         listViewPhone.setAdapter(adapter);
-
-
-        listViewPhone.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Phone phone_check = phones.get(i);
-                String checkName = phone_check.getName(),
-                        checkPhone1 = phone_check.getPhone1(),
-                        checkPhone2 = phone_check.getPhone2(),
-                        checkHousePhone = phone_check.getHouerPhone(),
-                        checkOfficePhone = phone_check.getOfficephone(),
-                        checkAddress = phone_check.getAddress(),
-                        checkRemark = phone_check.getRemark();
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-                builder.setMessage(
-                        "         姓               名：" + checkName + "\n" +
-                                "         联 系 方 式 1 ：" + checkPhone1 + "\n" +
-                                "         联 系 方 式 2 ：" + checkPhone2 + "\n" +
-                                "         家 庭 座 机 号：" + checkHousePhone + "\n" +
-                                "         办 公 座 机 号：" + checkOfficePhone + "\n" +
-                                "         地               址 ：" + checkAddress + "\n" +
-                                "         备               注 ：" + checkRemark + "\n");
-                builder.setTitle("                  查看联系人");
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-                builder.show();
-//                Intent intent = new Intent(MainActivity.this,EditPhone.class);
-//                intent.putExtra("extra_name",checkName);
-//                intent.putExtra("extra_phone1",checkPhone1);
-//                intent.putExtra("extra_phone2",checkPhone2);
-//                intent.putExtra("extra_housePhone",checkHousePhone);
-//                intent.putExtra("extra_officePhone",checkOfficePhone);
-//                intent.putExtra("extra_address",checkAddress);
-//                intent.putExtra("extra_remark",checkRemark);
-//                startActivity(intent);
-            }
-        });
         listViewPhone.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                DeleteDialog(i);
+                deleteDialog(i);
                 return true;
             }
         });
-
-        adapter.setOnItemCallClickListener(new ListAdapter.onItemCallListener() {
+        adapter.setOnItemCallClickListener(new ListAdapter.OnItemCallListener() {
             @Override
             public void onCallClick(int i) {
-
-                Phone phone_check = phones.get(i);
-                String phoneNumber = phone_check.getPhone1();
+                Phone phoneCheck = phones.get(i);
+                String phoneNumber = phoneCheck.getPhone1();
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + phoneNumber));
                 startActivity(intent);
             }
         });
-        adapter.setOnItemChangesClickListener(new ListAdapter.onItemChangesListener() {
+        adapter.setOnItemChangesClickListener(new ListAdapter.OnItemChangesListener() {
             @Override
             public void onChangesClick(int i) {
-                Phone phone_check = phones.get(i);
-                String checkName = phone_check.getName(),
-                        checkPhone1 = phone_check.getPhone1(),
-                        checkPhone2 = phone_check.getPhone2(),
-                        checkHousePhone = phone_check.getHouerPhone(),
-                        checkOfficePhone = phone_check.getOfficephone(),
-                        checkAddress = phone_check.getAddress(),
-                        checkRemark = phone_check.getRemark();
+                Phone phoneCheck = phones.get(i);
+                String checkName = phoneCheck.getName(),
+                        checkPhone1 = phoneCheck.getPhone1(),
+                        checkPhone2 = phoneCheck.getPhone2(),
+                        checkHousePhone = phoneCheck.getHouerPhone(),
+                        checkOfficePhone = phoneCheck.getOfficephone(),
+                        checkAddress = phoneCheck.getAddress(),
+                        checkRemark = phoneCheck.getRemark();
                 Intent intent = new Intent(MainActivity.this, EditPhone.class);
                 intent.putExtra("extra_name",checkName);
                 intent.putExtra("extra_phone1",checkPhone1);
@@ -146,37 +103,32 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"编辑",Toast.LENGTH_SHORT).show();
             }
         });
-        adapter.setOnItemMassgasClickListener(new ListAdapter.onItemMassgasListener() {
+        adapter.setOnItemMassgasClickListener(new ListAdapter.OnItemMassgasListener() {
             @Override
             public void onMassgasClick(int i) {
-                Phone phone_check = phones.get(i);
-                String phoneNumber = phone_check.getPhone1();
+                Phone phoneCheck = phones.get(i);
+                String phoneNumber = phoneCheck.getPhone1();
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("smsto:" + phoneNumber));
                 startActivity(intent);
                 Toast.makeText(MainActivity.this,"短信",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
-    }
-    private void DeleteDialog(final int positon){
+            }}});
+    private void deleteDialog(final int positon){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setMessage("删除联系人");
         builder.setTitle("提示");
         builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Phone phone_check = phones.get(positon);
-                String checkName = phone_check.getName(),
-                        checkPhone1 = phone_check.getPhone1(),
-                        checkPhone2 = phone_check.getPhone2(),
-                        checkHousePhone = phone_check.getHouerPhone(),
-                        checkOfficePhone = phone_check.getOfficephone(),
-                        checkAddress = phone_check.getAddress(),
-                        checkRemark = phone_check.getRemark();
+                Phone phoneCheck = phones.get(positon);
+                String checkName = phoneCheck.getName(),
+                        checkPhone1 = phoneCheck.getPhone1(),
+                        checkPhone2 = phoneCheck.getPhone2(),
+                        checkHousePhone = phoneCheck.getHouerPhone(),
+                        checkOfficePhone = phoneCheck.getOfficephone(),
+                        checkAddress = phoneCheck.getAddress(),
+                        checkRemark = phoneCheck.getRemark();
                 phones.remove(positon);
                 adapter.notifyDataSetChanged();  //更新listView
                 db.delete("PhoneNumber","name = ? and phone1 = ? and phone2 = ? and housePhone = ? and officePhone = ? and address = ? and remark = ?",new String[]{checkName,checkPhone1,checkPhone2,checkHousePhone,checkOfficePhone,checkAddress,checkRemark});
@@ -186,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         builder.setNeutralButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
             }
         });
         builder.show();

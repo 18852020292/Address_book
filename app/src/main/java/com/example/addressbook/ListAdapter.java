@@ -1,4 +1,4 @@
-package com.example.address_book;
+package com.example.addressbook;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,10 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
+/**
+ * 
+ * @author 刘杰
+ */
 public class ListAdapter extends ArrayAdapter<Phone>{
     private int resourceId;
     Phone phone = new Phone();
@@ -46,9 +50,9 @@ public class ListAdapter extends ArrayAdapter<Phone>{
         }
         viewHolder.phoneImage.setImageResource(R.drawable.ic_launcher_foreground);
         viewHolder.textViewName.setText(phone.getName());
-        if (phone.getPhone1().equals("")){
-            if (phone.getPhone2().equals("")){
-                if (phone.getHouerPhone().equals("")){
+        if ("".equals(phone.getPhone1())){
+            if ("".equals(phone.getPhone2())){
+                if ("".equals(phone.getHouerPhone())){
                     viewHolder.textViewPhone.setText(phone.getOfficephone());
                 }else{
                     viewHolder.textViewPhone.setText(phone.getHouerPhone());
@@ -90,27 +94,39 @@ public class ListAdapter extends ArrayAdapter<Phone>{
         Button buttonShotMassage;
     }
 
-    public interface onItemCallListener {
+    public interface OnItemCallListener {
+        /**
+         * 当点击条目时触发
+         * @param i
+         */
         void onCallClick(int i);
     }
-    private onItemCallListener mOnItemCallListener;
-    public void setOnItemCallClickListener(onItemCallListener mOnItemCallListener) {
+    private OnItemCallListener mOnItemCallListener;
+    public void setOnItemCallClickListener(OnItemCallListener mOnItemCallListener) {
         this.mOnItemCallListener = mOnItemCallListener;
     }
 
-    public interface onItemChangesListener {
+    public interface OnItemChangesListener {
+        /**
+         * 当点击条目时触发
+         * @param i
+         */
         void onChangesClick(int i);
     }
-    private onItemChangesListener mOnItemChangesListener;
-    public void setOnItemChangesClickListener(onItemChangesListener mOnItemChangersListener) {
+    private OnItemChangesListener mOnItemChangesListener;
+    public void setOnItemChangesClickListener(OnItemChangesListener mOnItemChangersListener) {
         this.mOnItemChangesListener = mOnItemChangersListener;
     }
 
-    public interface onItemMassgasListener {
+    public interface OnItemMassgasListener {
+        /**
+         * 当点击条目时触发
+         * @param i
+         */
         void onMassgasClick(int i);
     }
-    private onItemMassgasListener mOnItemMassgasListener;
-    public void setOnItemMassgasClickListener(onItemMassgasListener mOnItemMassgasListener) {
+    private OnItemMassgasListener mOnItemMassgasListener;
+    public void setOnItemMassgasClickListener(OnItemMassgasListener mOnItemMassgasListener) {
         this.mOnItemMassgasListener = mOnItemMassgasListener;
     }
 

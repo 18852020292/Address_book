@@ -1,4 +1,4 @@
-package com.example.address_book;
+package com.example.addressbook;
 
 import android.content.Context;
 

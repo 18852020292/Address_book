@@ -1,4 +1,4 @@
-package com.example.address_book;
+package com.example.addressbook;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,8 +12,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/**
+ *
+ * @author 刘杰
+ */
 public class AddPhoneNumber extends AppCompatActivity {
-    //定义所需要使用到的button和EditText控件对象
+
+    /**
+     * 定义所需要使用到的button和EditText控件对象
+     */
     Button buttonBack;
     Button buttonSave;
     EditText editTextName,
@@ -23,7 +30,9 @@ public class AddPhoneNumber extends AppCompatActivity {
             editTextOfficePhone,
             editTextAddress,
             editTextRemark;
-    //电仪数据库类型的变量
+    /**
+     * 定义数据库
+     */
     private Datebase datebase;
     SQLiteDatabase db;
 
@@ -57,15 +66,16 @@ public class AddPhoneNumber extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                定义字符串，并写获取EditText输入框中的文字
-                String edit_name = editTextName.getText().toString(),
-                        edit_phone1 = editTextPhone1.getText().toString(),
-                        edit_phone2 = editTextPhone2.getText().toString(),
-                        edit_housePhone = editTextHousePhone.getText().toString(),
-                        edit_officePhone = editTextOfficePhone.getText().toString(),
-                        edit_address = editTextAddress.getText().toString(),
-                        edit_remark = editTextRemark.getText().toString();
+                String editName = editTextName.getText().toString(),
+                        editPhone1 = editTextPhone1.getText().toString(),
+                        editPhone2 = editTextPhone2.getText().toString(),
+                        editHousePhone = editTextHousePhone.getText().toString(),
+                        editOfficePhone = editTextOfficePhone.getText().toString(),
+                        editAddress = editTextAddress.getText().toString(),
+                        editRemark = editTextRemark.getText().toString();
 //              判断输入的联系人姓名是否为空和联系方式1、联系方式2、家庭座机、办公座机其中一个是否不为空
-                if ((!edit_name.equals("")) && (!edit_phone1.equals("") || !edit_phone2.equals("") || !edit_housePhone.equals("") || !edit_officePhone.equals(""))){
+                boolean bool1 = (!"".equals(editName)) && (!"".equals(editPhone1) || !"".equals(editPhone2) || !"".equals(editHousePhone) || !"".equals(editOfficePhone));
+                if (bool1){
                     //定义一个计数器，用来判断数据库中是否存在此联系人
                     int count = 0;
                     //定义可操作的数据库对象
@@ -85,8 +95,8 @@ public class AddPhoneNumber extends AppCompatActivity {
                             String remark = cursor.getString(cursor.getColumnIndex("remark"));
 
                             //判断数据库中是否已经存在输入的联系人的姓名，或者是否存在输入的信息相同的信息
-                            if((name.equals(edit_name)&& phone1.equals(edit_phone1)) && (phone2.equals(edit_phone2)
-                                    && housePhone.equals(edit_housePhone)) && (officePone.equals(edit_officePhone) && address.equals(edit_address) && remark.equals(edit_remark)) || name.equals(edit_name)){
+                            if((name.equals(editName)&& phone1.equals(editPhone1)) && (phone2.equals(editPhone2)
+                                    && housePhone.equals(editHousePhone)) && (officePone.equals(editOfficePhone) && address.equals(editAddress) && remark.equals(editRemark)) || name.equals(editName)){
 //  如果存在相同的，那么count自增 count ++;
                             }
                         }while (cursor.moveToNext());
@@ -100,13 +110,13 @@ public class AddPhoneNumber extends AppCompatActivity {
 //                        创建ContentValues对象
                         ContentValues values = new ContentValues();
 //                        调用put方法添加数据到ContentValues对象中
-                        values.put("name",edit_name);
-                        values.put("phone1", edit_phone1);
-                        values.put("phone2", edit_phone2);
-                        values.put("housePhone", edit_housePhone);
-                        values.put("officePhone", edit_officePhone);
-                        values.put("address",edit_address);
-                        values.put("remark", edit_remark);
+                        values.put("name",editName);
+                        values.put("phone1", editPhone1);
+                        values.put("phone2", editPhone2);
+                        values.put("housePhone", editHousePhone);
+                        values.put("officePhone", editOfficePhone);
+                        values.put("address",editAddress);
+                        values.put("remark", editRemark);
 //                        添加数据到数据库表中
                         db.insert("PhoneNumber",null,values);
 //                        清楚values的数据

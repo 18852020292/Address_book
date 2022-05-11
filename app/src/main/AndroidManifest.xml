@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.address_book">
+    package="com.example.addressbook">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:exported = "true"
         android:theme="@style/Theme.Address_book">
-        <activity android:name=".EditPhone"/>
-        <activity android:name=".AddPhoneNumber" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.addressbook.EditPhone"/>
+        <activity android:name="com.example.addressbook.AddPhoneNumber" />
+        <activity android:name="com.example.addressbook.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

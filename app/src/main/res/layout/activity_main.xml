@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    tools:context="com.example.addressbook.MainActivity"
     >
 
     <ListView
+        android:id="@+id/list_list"
+        android:descendantFocusability="blocksDescendants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
         android:fadeScrollbars="true"
-        android:id="@+id/list_list"
-        />
+        android:scrollbars="vertical" />
 
     <Button
         android:id="@+id/button_add"

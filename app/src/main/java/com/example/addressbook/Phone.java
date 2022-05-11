@@ -1,4 +1,9 @@
-package com.example.address_book;
+package com.example.addressbook;
+
+/**
+ *
+ * @author 刘杰
+ */
 public class Phone {
     private String name,
             phone1,

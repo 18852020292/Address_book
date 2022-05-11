@@ -1,4 +1,4 @@
-package com.example.address_book;
+package com.example.addressbook;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,12 +10,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * @author 刘杰
+ */
 public class EditPhone extends AppCompatActivity {
     Button buttonCheck,
             buttonSave;
@@ -80,7 +79,7 @@ public class EditPhone extends AppCompatActivity {
                         edRemark = editTextRemark.getText().toString();
 
                 db = datebase.getWritableDatabase();
-                int ID = 0;
+                int id = 0;
                 Cursor cursor = db.query("PhoneNumber",null,null,null,null,null,null);
                 if (cursor.moveToFirst()){
                     do{
@@ -89,7 +88,7 @@ public class EditPhone extends AppCompatActivity {
 //                        对比名字是否符合
                         if (name.equals(editName)){
 //                            名字符合则获取此联系人在数据库表中的主键id
-                            ID = cursor.getInt((cursor.getColumnIndex("id")));
+                            id = cursor.getInt((cursor.getColumnIndex("id")));
                             break;
                         }
                     }while (cursor.moveToNext());
@@ -102,7 +101,7 @@ public class EditPhone extends AppCompatActivity {
                 values.put("address",edAddress);
                 values.put("remark", edRemark);
 //                将所输入的信息提交至数据库修改，使用条件为主键等于刚刚所获取的主键值
-                db.update("PhoneNumber",values,"id = ?",new String[]{String.valueOf(ID)});
+                db.update("PhoneNumber",values,"id = ?",new String[]{String.valueOf(id)});
                 values.clear();
                 Toast.makeText(EditPhone.this,"保存成功！",Toast.LENGTH_SHORT).show();
                 Intent intent1 = new Intent(EditPhone.this,MainActivity.class);
